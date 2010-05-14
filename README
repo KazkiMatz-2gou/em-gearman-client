@@ -1,0 +1,34 @@
+#== Usage example
+
+  EM.run{
+    gearman = EM::P::Gearman.connect 'localhost', 7003
+    task = gearman.create_task('sleep', 5)
+    task.timeout = 60
+    task.priority = :high
+    task.background = false
+    task.on_complete {|res|
+      gearman.close_connection_after_writing
+      p res
+    }
+    task.on_fail {
+      gearman.close_connection_after_writing
+    }
+    task.queue!
+  }
+
+  #priority -> (:high | :low) the priority of the job, a high priority job is executed before a low on
+  #background -> (true | false) a background task will return no further information to the client.
+
+#==
+
+
+
+
+TODO: imprement task#timeout
+
+
+
+Originally written by : http://github.com/xing/gearman-ruby
+Author                : Kazki Matz (@KazkiMatz)
+Lisence               : Under the same lisence to xing-gearman-ruby (which I'm not sure)
+

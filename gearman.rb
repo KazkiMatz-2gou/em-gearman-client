@@ -1,5 +1,5 @@
-require 'lib/gearman/task.rb'
-require 'lib/gearman/util.rb'
+require File.dirname(__FILE__) + '/gearman/task.rb'
+require File.dirname(__FILE__) + '/gearman/util.rb'
 
 module EventMachine
   module Protocols
